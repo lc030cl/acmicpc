@@ -1,0 +1,25 @@
+from queue import LifoQueue
+from collections import deque
+def main():
+  n = int(input())
+  a = list(map(int, input().split()))
+  deq = deque()
+  nge = [-1 for i in range(n)]
+  deq.appendleft([a[0], 0])
+  for i in range(1, n):
+    top, index = deq[0]
+    while top < a[i]:
+      nge[index] = a[i]
+      if len(deq) > 0:
+        top, index = deq.popleft()
+        if top >= a[i]:
+          deq.appendleft([top, index])
+      else:
+        break
+    deq.appendleft([a[i], i])
+  for i in range(n):
+    print(nge[i], end=' ')
+  
+
+if __name__ == '__main__':
+  main()
